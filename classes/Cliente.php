@@ -45,6 +45,23 @@ class Cliente {
         
 }
 
+   public function getClientes($codcli){
+       
+       $sql = 'SELECT * from cliente; WHERE (`codcli` = ?);';
+       $q = $this->conexao->prepare($sql);
+       $q->bindParam(1, $codcli);
+       $q->execute();
+
+       $cliente = [];
+       
+       foreach ($q as $cli) {
+           $cliente = $cli;
+       }
+       
+       return $cliente;
+       
+   }
+
    public function excluir($codcli) {
        $sql = 'DELETE FROM cliente WHERE codcli = ?;';
        $q = $this->conexao->prepare($sql);
@@ -53,7 +70,6 @@ class Cliente {
        
        $q->execute();
    }
-
 
 }
 
